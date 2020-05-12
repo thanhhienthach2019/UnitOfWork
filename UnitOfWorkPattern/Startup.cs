@@ -10,6 +10,11 @@
     using UnitOfWorkPattern.Api.AutoMapper;
     using UnitOfWorkPattern.Api.Services;
     using UnitOfWorkPattern.Api.UnitOfWork;
+    using AutoMapper;
+    using Service.AutoMapper;
+    using Repository.Infrastructure.Interface;
+    using Service.Interface;
+    using Service.Implement;
 
     public class Startup
     {
@@ -22,7 +27,7 @@
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
 
-            AutoMapperConfiguration.Config();
+            MappingProfile.Config();
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -32,13 +37,15 @@
         {
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("DefaultConnection")));
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             // Add framework services.
             services.AddMvc();
-
-            services.AddScoped<IOrderService, OrderService>();
-            services.AddScoped<IOrderDetailsService, OrderDetailsService>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

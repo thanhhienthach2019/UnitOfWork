@@ -117,7 +117,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoMapper\AutoMapperConfiguration.cs" />
-    <Compile Include="AutoMapper\DtoEntityCommonMapper.cs" />
+    <Compile Include="AutoMapper\MappingProfile.cs" />
+    <Compile Include="Implement\UserService.cs" />
+    <Compile Include="Interface\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -134,10 +136,7 @@
       <Name>Repository</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Implement\" />
-    <Folder Include="Interface\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

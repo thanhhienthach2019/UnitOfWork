@@ -8,7 +8,7 @@
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.AddProfile(new DtoEntityCommonMapper());
+                cfg.AddProfile(new MappingProfile());
             });
         }
     }

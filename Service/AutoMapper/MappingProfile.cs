@@ -4,9 +4,9 @@
     using DTO;
     using global::AutoMapper;
 
-    public class DtoEntityCommonMapper : Profile
+    public class MappingProfile : Profile
     {
-        public DtoEntityCommonMapper()
+        public MappingProfile()
         {
             #region Enity To Dto
 
