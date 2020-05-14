@@ -5,10 +5,7 @@ using Repository.Infrastructure.Interface;
 using Service.Interface;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service.Implement
 {
@@ -16,6 +13,7 @@ namespace Service.Implement
     {
         private IMapper _mapper;
         private IUnitOfWork _unitOfWork;
+
         public UserService(IMapper mapper, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
@@ -48,11 +46,11 @@ namespace Service.Implement
             return _mapper.Map<UserDTO>(user);
         }
 
-        public UserDTO GetByPredicate(Expression<Func<UserDTO, bool>> predicate)
+        public IEnumerable<UserDTO> GetByPredicate(Expression<Func<UserDTO, bool>> predicate)
         {
             Expression<Func<user, bool>> p = _mapper.Map<Expression<Func<user, bool>>>(predicate);
-            user user = _unitOfWork.UserRepository.GetByPredicate(p);
-            return _mapper.Map<UserDTO>(user);
+            IEnumerable<user> user = _unitOfWork.UserRepository.GetByPredicate(p);
+            return _mapper.Map<IEnumerable<UserDTO>>(user);
         }
 
         public void Update(UserDTO userDTO)

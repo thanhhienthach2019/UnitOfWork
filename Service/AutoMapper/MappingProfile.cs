@@ -13,14 +13,14 @@
             CreateMap<user, UserDTO>();
             CreateMap<DonVi, DonViDTO>();
 
-            #endregion
+            #endregion Enity To Dto
 
             #region Dto to Entity
 
             CreateMap<UserDTO, user>();
             CreateMap<DonViDTO, DonVi>();
 
-            #endregion
+            #endregion Dto to Entity
         }
     }
 }

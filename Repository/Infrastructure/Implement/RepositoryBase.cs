@@ -1,11 +1,7 @@
 ﻿using Data;
 using Repository.Infrastructure.Interface;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repository.Infrastructure.Implement
 {
@@ -13,11 +9,13 @@ namespace Repository.Infrastructure.Implement
     {
         private ISBEntities _dbContext;
         protected DbSet<TEntity> _dbSet;
+
         public RepositoryBase(ISBEntities dbContext)
         {
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<TEntity>();
         }
+
         public TEntity Add(TEntity entity)
         {
             return _dbSet.Add(entity);

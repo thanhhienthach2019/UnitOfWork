@@ -1,11 +1,10 @@
-﻿using Data;
-using Repository.Infrastructure.Implement;
-using Repository.Repository.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
+using Data;
+using Repository.Infrastructure.Implement;
+using Repository.Repository.Interface;
 
 namespace Repository.Repository.Implement
 {
@@ -13,7 +12,11 @@ namespace Repository.Repository.Implement
     {
         public DonviRepository(ISBEntities entities) : base(entities)
         {
+        }
 
+        public IEnumerable<DonVi> GetByPredicate(Expression<Func<DonVi, bool>> expression)
+        {
+            return _dbSet.Where(expression);
         }
     }
 }
