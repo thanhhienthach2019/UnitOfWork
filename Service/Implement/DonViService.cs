@@ -5,10 +5,7 @@ using Repository.Infrastructure.Interface;
 using Service.Interface;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service.Implement
 {
@@ -16,11 +13,13 @@ namespace Service.Implement
     {
         private IMapper _mapper;
         private IUnitOfWork _unitOfWork;
-        public DonViService(IMapper mapper,IUnitOfWork unitOfWork)
+
+        public DonViService(IMapper mapper, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
+
         public DonViDTO Add(DonViDTO donViDTO)
         {
             DonVi donVi = _unitOfWork.DonViRepository.Add(_mapper.Map<DonVi>(donViDTO));
@@ -50,7 +49,7 @@ namespace Service.Implement
         public IEnumerable<DonViDTO> GetByPredicate(Expression<Func<DonViDTO, bool>> predicate)
         {
             Expression<Func<DonVi, bool>> condition = _mapper.Map<Expression<Func<DonVi, bool>>>(predicate);
-            IEnumerable <DonVi> donVis = _unitOfWork.DonViRepository.GetByPredicate(condition);
+            IEnumerable<DonVi> donVis = _unitOfWork.DonViRepository.GetByPredicate(condition);
             return _mapper.Map<IEnumerable<DonViDTO>>(donVis);
         }
 

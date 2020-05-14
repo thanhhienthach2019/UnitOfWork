@@ -41,8 +41,9 @@ namespace Service.Test
             int expected = 2;
             Assert.Equal(expected, actual.Count());
         }
+
         [Theory]
-        [InlineData("1 hien","1 hien")]
+        [InlineData("1 hien", "1 hien")]
         public void GetByID_Test(string ids, string expected)
         {
             user users = new user() { id = ids, name = "Hiền nè" };

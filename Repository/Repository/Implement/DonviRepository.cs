@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Data;
+using Repository.Infrastructure.Implement;
+using Repository.Repository.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Data;
-using Repository.Infrastructure.Implement;
-using Repository.Repository.Interface;
 
 namespace Repository.Repository.Implement
 {

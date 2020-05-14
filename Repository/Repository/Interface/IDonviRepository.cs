@@ -8,6 +8,6 @@ namespace Repository.Repository.Interface
 {
     public interface IDonviRepository : IRepositoryBase<DonVi>
     {
-        IEnumerable<DonVi> GetByPredicate(Expression<Func<DonVi, bool>> expression); 
+        IEnumerable<DonVi> GetByPredicate(Expression<Func<DonVi, bool>> expression);
     }
 }
