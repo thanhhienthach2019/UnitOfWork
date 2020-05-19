@@ -57,9 +57,13 @@
     <Compile Include="Infrastructure\Interface\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Implement\DonviRepository.cs" />
+    <Compile Include="Repository\Implement\LoaiVanBanRepository.cs" />
     <Compile Include="Repository\Implement\UserRepository.cs" />
+    <Compile Include="Repository\Implement\VanBanRepository.cs" />
     <Compile Include="Repository\Interface\IDonviRepository.cs" />
+    <Compile Include="Repository\Interface\ILoaiVanBanRepository.cs" />
     <Compile Include="Repository\Interface\IUserRepository.cs" />
+    <Compile Include="Repository\Interface\IVanBanRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj">

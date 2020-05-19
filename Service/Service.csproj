@@ -119,9 +119,13 @@
     <Compile Include="AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="AutoMapper\MappingProfile.cs" />
     <Compile Include="Implement\DonViService.cs" />
+    <Compile Include="Implement\LoaiVanBanService.cs" />
     <Compile Include="Implement\UserService.cs" />
+    <Compile Include="Implement\VanBanService.cs" />
     <Compile Include="Interface\IDonViService.cs" />
+    <Compile Include="Interface\ILoaiVanBanService.cs" />
     <Compile Include="Interface\IUserService.cs" />
+    <Compile Include="Interface\IVanBanService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

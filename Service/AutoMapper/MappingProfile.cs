@@ -12,6 +12,8 @@
 
             CreateMap<user, UserDTO>();
             CreateMap<DonVi, DonViDTO>();
+            CreateMap<loaivanban, LoaiVanBanDTO>();
+            CreateMap<vanban, VanBanDTO>();
 
             #endregion Enity To Dto
 
@@ -19,6 +21,8 @@
 
             CreateMap<UserDTO, user>();
             CreateMap<DonViDTO, DonVi>();
+            CreateMap<LoaiVanBanDTO, loaivanban>();
+            CreateMap<VanBanDTO, vanban>();
 
             #endregion Dto to Entity
         }

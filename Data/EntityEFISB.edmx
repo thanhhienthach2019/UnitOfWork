@@ -13,6 +13,16 @@
           <Property Name="TenDonVi" Type="nvarchar" MaxLength="500" />
           <Property Name="VietTat" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="loaivanban">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenLoaiVB" Type="nvarchar" MaxLength="150" />
+          <Property Name="DateCreate" Type="datetime" />
+          <Property Name="UserCreate" Type="varchar" MaxLength="20" />
+          <Property Name="DateUpdate" Type="datetime" />
+        </EntityType>
         <EntityType Name="users">
           <Key>
             <PropertyRef Name="id" />
@@ -24,6 +34,21 @@
           <Property Name="created_at" Type="datetime" />
           <Property Name="updated_at" Type="datetime" />
           <Property Name="donvi" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="vanban">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Sovb" Type="nvarchar" MaxLength="150" />
+          <Property Name="Trichyeu" Type="nvarchar(max)" />
+          <Property Name="Noidung" Type="nvarchar(max)" />
+          <Property Name="Ngaydang" Type="datetime" />
+          <Property Name="Nguoidang" Type="nvarchar" MaxLength="30" />
+          <Property Name="Idloaivb" Type="int" />
+          <Property Name="Url" Type="nvarchar" MaxLength="300" />
+          <Property Name="Donvigui" Type="varchar" MaxLength="150" />
+          <Property Name="TenFile" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <Association Name="FK__users__donvi__18EBB532">
           <End Role="DonVi" Type="Self.DonVi" Multiplicity="0..1" />
@@ -37,12 +62,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__vanban__Idloaivb__10566F31">
+          <End Role="loaivanban" Type="Self.loaivanban" Multiplicity="0..1" />
+          <End Role="vanban" Type="Self.vanban" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="loaivanban">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="vanban">
+              <PropertyRef Name="Idloaivb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ISBModelStoreContainer">
           <EntitySet Name="DonVi" EntityType="Self.DonVi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="loaivanban" EntityType="Self.loaivanban" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vanban" EntityType="Self.vanban" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__users__donvi__18EBB532" Association="Self.FK__users__donvi__18EBB532">
             <End Role="DonVi" EntitySet="DonVi" />
             <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__vanban__Idloaivb__10566F31" Association="Self.FK__vanban__Idloaivb__10566F31">
+            <End Role="loaivanban" EntitySet="loaivanban" />
+            <End Role="vanban" EntitySet="vanban" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -55,6 +98,12 @@
           <AssociationSet Name="FK__users__donvi__18EBB532" Association="ISBModel.FK__users__donvi__18EBB532">
             <End Role="DonVi" EntitySet="DonVis" />
             <End Role="user" EntitySet="users" />
+          </AssociationSet>
+          <EntitySet Name="loaivanbans" EntityType="ISBModel.loaivanban" />
+          <EntitySet Name="vanbans" EntityType="ISBModel.vanban" />
+          <AssociationSet Name="FK__vanban__Idloaivb__10566F31" Association="ISBModel.FK__vanban__Idloaivb__10566F31">
+            <End Role="loaivanban" EntitySet="loaivanbans" />
+            <End Role="vanban" EntitySet="vanbans" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="DonVi">
@@ -91,6 +140,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="loaivanban">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenLoaiVB" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreate" Type="DateTime" Precision="3" />
+          <Property Name="UserCreate" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DateUpdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="vanbans" Relationship="ISBModel.FK__vanban__Idloaivb__10566F31" FromRole="loaivanban" ToRole="vanban" />
+        </EntityType>
+        <EntityType Name="vanban">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Sovb" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Trichyeu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Noidung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Ngaydang" Type="DateTime" Precision="3" />
+          <Property Name="Nguoidang" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Idloaivb" Type="Int32" />
+          <Property Name="Url" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Donvigui" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="TenFile" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="loaivanban" Relationship="ISBModel.FK__vanban__Idloaivb__10566F31" FromRole="vanban" ToRole="loaivanban" />
+        </EntityType>
+        <Association Name="FK__vanban__Idloaivb__10566F31">
+          <End Type="ISBModel.loaivanban" Role="loaivanban" Multiplicity="0..1" />
+          <End Type="ISBModel.vanban" Role="vanban" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="loaivanban">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="vanban">
+              <PropertyRef Name="Idloaivb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -116,6 +204,33 @@
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="loaivanbans">
+            <EntityTypeMapping TypeName="ISBModel.loaivanban">
+              <MappingFragment StoreEntitySet="loaivanban">
+                <ScalarProperty Name="DateUpdate" ColumnName="DateUpdate" />
+                <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
+                <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+                <ScalarProperty Name="TenLoaiVB" ColumnName="TenLoaiVB" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vanbans">
+            <EntityTypeMapping TypeName="ISBModel.vanban">
+              <MappingFragment StoreEntitySet="vanban">
+                <ScalarProperty Name="TenFile" ColumnName="TenFile" />
+                <ScalarProperty Name="Donvigui" ColumnName="Donvigui" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Idloaivb" ColumnName="Idloaivb" />
+                <ScalarProperty Name="Nguoidang" ColumnName="Nguoidang" />
+                <ScalarProperty Name="Ngaydang" ColumnName="Ngaydang" />
+                <ScalarProperty Name="Noidung" ColumnName="Noidung" />
+                <ScalarProperty Name="Trichyeu" ColumnName="Trichyeu" />
+                <ScalarProperty Name="Sovb" ColumnName="Sovb" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

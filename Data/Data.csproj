@@ -68,8 +68,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EntityEFISB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="loaivanban.cs">
+      <DependentUpon>EntityEFISB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="user.cs">
+      <DependentUpon>EntityEFISB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vanban.cs">
       <DependentUpon>EntityEFISB.tt</DependentUpon>
     </Compile>
   </ItemGroup>

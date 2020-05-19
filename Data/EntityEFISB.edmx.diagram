@@ -8,6 +8,9 @@
         <EntityTypeShape EntityType="ISBModel.DonVi" Width="1.5" PointX="0.75" PointY="1.375" />
         <EntityTypeShape EntityType="ISBModel.user" Width="1.5" PointX="3" PointY="1" />
         <AssociationConnector Association="ISBModel.FK__users__donvi__18EBB532" />
+        <EntityTypeShape EntityType="ISBModel.loaivanban" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="ISBModel.vanban" Width="1.5" PointX="3" PointY="5.25" />
+        <AssociationConnector Association="ISBModel.FK__vanban__Idloaivb__10566F31" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

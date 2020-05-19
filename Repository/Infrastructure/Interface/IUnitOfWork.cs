@@ -6,6 +6,8 @@ namespace Repository.Infrastructure.Interface
     {
         IUserRepository UserRepository { get; }
         IDonviRepository DonViRepository { get; }
+        ILoaiVanBanRepository LoaiVanBanRepository { get; }
+        IVanBanRepository VanBanRepository { get; }
 
         void Commit();
 

@@ -27,5 +27,7 @@ namespace Data
     
         public virtual DbSet<DonVi> DonVis { get; set; }
         public virtual DbSet<user> users { get; set; }
+        public virtual DbSet<loaivanban> loaivanbans { get; set; }
+        public virtual DbSet<vanban> vanbans { get; set; }
     }
 }
