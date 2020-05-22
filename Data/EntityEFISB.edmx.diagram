@@ -11,6 +11,9 @@
         <EntityTypeShape EntityType="ISBModel.loaivanban" Width="1.5" PointX="0.75" PointY="4.75" />
         <EntityTypeShape EntityType="ISBModel.vanban" Width="1.5" PointX="3" PointY="5.25" />
         <AssociationConnector Association="ISBModel.FK__vanban__Idloaivb__10566F31" />
+        <EntityTypeShape EntityType="ISBModel.loaitailieu" Width="1.5" PointX="7.125" PointY="0.75" />
+        <EntityTypeShape EntityType="ISBModel.tailieu" Width="1.5" PointX="5.75" PointY="5.375" />
+        <AssociationConnector Association="ISBModel.FK__tailieu__user_cr__0B91BA14" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

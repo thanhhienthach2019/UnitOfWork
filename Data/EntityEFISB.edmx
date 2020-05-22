@@ -13,6 +13,15 @@
           <Property Name="TenDonVi" Type="nvarchar" MaxLength="500" />
           <Property Name="VietTat" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="loaitailieu">
+          <Key>
+            <PropertyRef Name="MaLoai" />
+          </Key>
+          <Property Name="MaLoai" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TenLoai" Type="nvarchar" MaxLength="300" />
+          <Property Name="Create_at" Type="datetime" />
+          <Property Name="User_create" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="loaivanban">
           <Key>
             <PropertyRef Name="id" />
@@ -22,6 +31,22 @@
           <Property Name="DateCreate" Type="datetime" />
           <Property Name="UserCreate" Type="varchar" MaxLength="20" />
           <Property Name="DateUpdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tailieu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TieuDe" Type="nvarchar" MaxLength="250" />
+          <Property Name="TenFile" Type="nvarchar" MaxLength="150" />
+          <Property Name="FilePath" Type="varchar" MaxLength="400" />
+          <Property Name="create_at" Type="datetime" />
+          <Property Name="create_up" Type="datetime" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="user_create" Type="varchar" MaxLength="50" />
+          <Property Name="MaSo" Type="varchar" MaxLength="100" />
+          <Property Name="MS_DV" Type="varchar" MaxLength="10" />
+          <Property Name="MaLoai" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="users">
           <Key>
@@ -50,6 +75,18 @@
           <Property Name="Donvigui" Type="varchar" MaxLength="150" />
           <Property Name="TenFile" Type="nvarchar" MaxLength="300" />
         </EntityType>
+        <Association Name="FK__tailieu__user_cr__0B91BA14">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="tailieu" Type="Self.tailieu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tailieu">
+              <PropertyRef Name="user_create" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__users__donvi__18EBB532">
           <End Role="DonVi" Type="Self.DonVi" Multiplicity="0..1" />
           <End Role="users" Type="Self.users" Multiplicity="*" />
@@ -74,11 +111,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="Get_LoaiTaiLieu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ISBModelStoreContainer">
           <EntitySet Name="DonVi" EntityType="Self.DonVi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="loaitailieu" EntityType="Self.loaitailieu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="loaivanban" EntityType="Self.loaivanban" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tailieu" EntityType="Self.tailieu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vanban" EntityType="Self.vanban" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tailieu__user_cr__0B91BA14" Association="Self.FK__tailieu__user_cr__0B91BA14">
+            <End Role="users" EntitySet="users" />
+            <End Role="tailieu" EntitySet="tailieu" />
+          </AssociationSet>
           <AssociationSet Name="FK__users__donvi__18EBB532" Association="Self.FK__users__donvi__18EBB532">
             <End Role="DonVi" EntitySet="DonVi" />
             <End Role="users" EntitySet="users" />
@@ -105,6 +149,13 @@
             <End Role="loaivanban" EntitySet="loaivanbans" />
             <End Role="vanban" EntitySet="vanbans" />
           </AssociationSet>
+          <EntitySet Name="loaitailieux" EntityType="ISBModel.loaitailieu" />
+          <EntitySet Name="tailieux" EntityType="ISBModel.tailieu" />
+          <AssociationSet Name="FK__tailieu__user_cr__0B91BA14" Association="ISBModel.FK__tailieu__user_cr__0B91BA14">
+            <End Role="user" EntitySet="users" />
+            <End Role="tailieu" EntitySet="tailieux" />
+          </AssociationSet>
+          <FunctionImport Name="Get_LoaiTaiLieu" ReturnType="Collection(ISBModel.Get_LoaiTaiLieu_Result)" />
         </EntityContainer>
         <EntityType Name="DonVi">
           <Key>
@@ -127,6 +178,7 @@
           <Property Name="updated_at" Type="DateTime" Precision="3" />
           <Property Name="donvi" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DonVi1" Relationship="ISBModel.FK__users__donvi__18EBB532" FromRole="user" ToRole="DonVi" />
+          <NavigationProperty Name="tailieux" Relationship="ISBModel.FK__tailieu__user_cr__0B91BA14" FromRole="user" ToRole="tailieu" />
         </EntityType>
         <Association Name="FK__users__donvi__18EBB532">
           <End Type="ISBModel.DonVi" Role="DonVi" Multiplicity="0..1" />
@@ -179,6 +231,50 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="loaitailieu">
+          <Key>
+            <PropertyRef Name="MaLoai" />
+          </Key>
+          <Property Name="MaLoai" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TenLoai" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Create_at" Type="DateTime" Precision="3" />
+          <Property Name="User_create" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tailieu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TieuDe" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="TenFile" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="FilePath" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="create_at" Type="DateTime" Precision="3" />
+          <Property Name="create_up" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="user_create" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MaSo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MS_DV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MaLoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="user" Relationship="ISBModel.FK__tailieu__user_cr__0B91BA14" FromRole="tailieu" ToRole="user" />
+        </EntityType>
+        <Association Name="FK__tailieu__user_cr__0B91BA14">
+          <End Type="ISBModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="ISBModel.tailieu" Role="tailieu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tailieu">
+              <PropertyRef Name="user_create" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="Get_LoaiTaiLieu_Result">
+          <Property Type="Int64" Name="STT" Nullable="true" />
+          <Property Type="String" Name="MaLoai" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="TenLoai" Nullable="true" MaxLength="300" />
+          <Property Type="DateTime" Name="Create_at" Nullable="true" Precision="23" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -234,6 +330,43 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="loaitailieux">
+            <EntityTypeMapping TypeName="ISBModel.loaitailieu">
+              <MappingFragment StoreEntitySet="loaitailieu">
+                <ScalarProperty Name="User_create" ColumnName="User_create" />
+                <ScalarProperty Name="Create_at" ColumnName="Create_at" />
+                <ScalarProperty Name="TenLoai" ColumnName="TenLoai" />
+                <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tailieux">
+            <EntityTypeMapping TypeName="ISBModel.tailieu">
+              <MappingFragment StoreEntitySet="tailieu">
+                <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
+                <ScalarProperty Name="MS_DV" ColumnName="MS_DV" />
+                <ScalarProperty Name="MaSo" ColumnName="MaSo" />
+                <ScalarProperty Name="user_create" ColumnName="user_create" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="create_up" ColumnName="create_up" />
+                <ScalarProperty Name="create_at" ColumnName="create_at" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="TenFile" ColumnName="TenFile" />
+                <ScalarProperty Name="TieuDe" ColumnName="TieuDe" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Get_LoaiTaiLieu" FunctionName="ISBModel.Store.Get_LoaiTaiLieu">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ISBModel.Get_LoaiTaiLieu_Result">
+                <ScalarProperty Name="STT" ColumnName="STT" />
+                <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
+                <ScalarProperty Name="TenLoai" ColumnName="TenLoai" />
+                <ScalarProperty Name="Create_at" ColumnName="Create_at" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -14,6 +14,12 @@ namespace Data
     
     public partial class user
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public user()
+        {
+            this.tailieux = new HashSet<tailieu>();
+        }
+    
         public string id { get; set; }
         public string name { get; set; }
         public string email { get; set; }
@@ -23,5 +29,7 @@ namespace Data
         public string donvi { get; set; }
     
         public virtual DonVi DonVi1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tailieu> tailieux { get; set; }
     }
 }

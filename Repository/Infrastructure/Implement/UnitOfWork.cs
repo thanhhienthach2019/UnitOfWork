@@ -12,6 +12,8 @@ namespace Repository.Infrastructure.Implement
         public IDonviRepository DonViRepository { get; private set; }
         public ILoaiVanBanRepository LoaiVanBanRepository { get; private set; }
         public IVanBanRepository VanBanRepository { get; private set; }
+        public ILoaiTaiLieuRepository LoaiTaiLieuRepository { get; private set; }
+        public ITaiLieuRepository TaiLieuRepository { get; private set; }
 
         private ISBEntities _dbContext;
         private bool disposed;
@@ -23,6 +25,8 @@ namespace Repository.Infrastructure.Implement
             DonViRepository = new DonviRepository(_dbContext);
             LoaiVanBanRepository = new LoaiVanBanRepository(_dbContext);
             VanBanRepository = new VanBanRepository(_dbContext);
+            LoaiTaiLieuRepository = new LoaiTaiLieuRepository(_dbContext);
+            TaiLieuRepository = new TaiLieuRepository(_dbContext);
         }
 
         public void Commit()

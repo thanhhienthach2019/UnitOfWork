@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DTO
 {
@@ -13,5 +14,6 @@ namespace DTO
         public string donvi { get; set; }
 
         public virtual DonViDTO DonVi1 { get; set; }
+        public virtual ICollection<TaiLieuDTO> tailieux { get; set; }
     }
 }

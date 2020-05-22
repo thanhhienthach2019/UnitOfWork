@@ -119,11 +119,15 @@
     <Compile Include="AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="AutoMapper\MappingProfile.cs" />
     <Compile Include="Implement\DonViService.cs" />
+    <Compile Include="Implement\LoaiTaiLieuService.cs" />
     <Compile Include="Implement\LoaiVanBanService.cs" />
+    <Compile Include="Implement\TaiLieuService.cs" />
     <Compile Include="Implement\UserService.cs" />
     <Compile Include="Implement\VanBanService.cs" />
     <Compile Include="Interface\IDonViService.cs" />
+    <Compile Include="Interface\ILoaiTaiLieuService.cs" />
     <Compile Include="Interface\ILoaiVanBanService.cs" />
+    <Compile Include="Interface\ITaiLieuService.cs" />
     <Compile Include="Interface\IUserService.cs" />
     <Compile Include="Interface\IVanBanService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

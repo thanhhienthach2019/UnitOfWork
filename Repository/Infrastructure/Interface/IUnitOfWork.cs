@@ -8,6 +8,8 @@ namespace Repository.Infrastructure.Interface
         IDonviRepository DonViRepository { get; }
         ILoaiVanBanRepository LoaiVanBanRepository { get; }
         IVanBanRepository VanBanRepository { get; }
+        ILoaiTaiLieuRepository LoaiTaiLieuRepository { get; }
+        ITaiLieuRepository TaiLieuRepository { get; }
 
         void Commit();
 

@@ -12,6 +12,8 @@ namespace Data
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class ISBEntities : DbContext
     {
@@ -29,5 +31,12 @@ namespace Data
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<loaivanban> loaivanbans { get; set; }
         public virtual DbSet<vanban> vanbans { get; set; }
+        public virtual DbSet<loaitailieu> loaitailieux { get; set; }
+        public virtual DbSet<tailieu> tailieux { get; set; }
+    
+        public virtual ObjectResult<Get_LoaiTaiLieu_Result> Get_LoaiTaiLieu()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_LoaiTaiLieu_Result>("Get_LoaiTaiLieu");
+        }
     }
 }

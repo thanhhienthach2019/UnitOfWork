@@ -42,8 +42,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DonViDTO.cs" />
+    <Compile Include="GetLoaiTaiLieuDTO.cs" />
+    <Compile Include="LoaiTaiLieuDTO.cs" />
     <Compile Include="LoaiVanBanDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaiLieuDTO.cs" />
     <Compile Include="UserDTO.cs" />
     <Compile Include="VanBanDTO.cs" />
   </ItemGroup>

@@ -148,7 +148,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Controllers\DonViController.cs" />
+    <Compile Include="Controllers\LoaiTaiLieuController.cs" />
+    <Compile Include="Controllers\LoaiVanBanController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\VanBanController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -196,6 +199,9 @@
     <Content Include="Views\DonVi\Index.cshtml" />
     <Content Include="Views\DonVi\Insert.cshtml" />
     <Content Include="Views\DonVi\Update.cshtml" />
+    <Content Include="Views\LoaiVanBan\Index.cshtml" />
+    <Content Include="Views\VanBan\Index.cshtml" />
+    <Content Include="Views\LoaiTaiLieu\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -203,7 +209,6 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\userthuong\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

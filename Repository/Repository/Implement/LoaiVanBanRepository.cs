@@ -5,16 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repository.Repository.Implement
 {
-    public class LoaiVanBanRepository:RepositoryBase<loaivanban>,ILoaiVanBanRepository
+    public class LoaiVanBanRepository : RepositoryBase<loaivanban>, ILoaiVanBanRepository
     {
-        public LoaiVanBanRepository(ISBEntities entities):base(entities)
+        public LoaiVanBanRepository(ISBEntities entities) : base(entities)
         {
-
         }
 
         public IEnumerable<loaivanban> GetByPredicate(Expression<Func<loaivanban, bool>> expression)

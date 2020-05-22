@@ -5,16 +5,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Repository.Repository.Implement
 {
-    public class VanBanRepository : RepositoryBase<vanban>, IVanBanRepository
+    public class TaiLieuRepository : RepositoryBase<tailieu>, ITaiLieuRepository
     {
-        public VanBanRepository(ISBEntities entities) : base(entities)
+        public TaiLieuRepository(ISBEntities iSBEntities):base(iSBEntities)
         {
-        }
 
-        public IEnumerable<vanban> GetByPredicate(Expression<Func<vanban, bool>> expression)
+        }
+        public IEnumerable<tailieu> GetByPredicate(Expression<Func<tailieu, bool>> expression)
         {
             return _dbSet.Where(expression);
         }
