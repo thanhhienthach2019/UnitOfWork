@@ -6,6 +6,7 @@ using Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Service.Implement
 {
@@ -34,15 +35,15 @@ namespace Service.Implement
             return _mapper.Map<LoaiVanBanDTO>(loaivanban);
         }
 
-        public IEnumerable<LoaiVanBanDTO> GetAll()
+        public async Task<IEnumerable<LoaiVanBanDTO>> GetAll()
         {
-            IEnumerable<loaivanban> loaivanban = _unitOfWork.LoaiVanBanRepository.GetAll();
+            IEnumerable<loaivanban> loaivanban = await _unitOfWork.LoaiVanBanRepository.GetAll();
             return _mapper.Map<IEnumerable<LoaiVanBanDTO>>(loaivanban);
         }
 
-        public LoaiVanBanDTO GetById(object id)
+        public async Task<LoaiVanBanDTO> GetById(object id)
         {
-            loaivanban loaivanban = _unitOfWork.LoaiVanBanRepository.GetById(id);
+            loaivanban loaivanban = await _unitOfWork.LoaiVanBanRepository.GetById(id);
             return _mapper.Map<LoaiVanBanDTO>(loaivanban);
         }
 

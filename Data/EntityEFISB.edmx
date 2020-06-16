@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ISBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Banhanhvb">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Idvanban" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Donvinhan" Type="nvarchar" MaxLength="20" />
+          <Property Name="Ngayphathanh" Type="datetime" />
+          <Property Name="Nguoibanhanh" Type="varchar" MaxLength="15" />
+        </EntityType>
         <EntityType Name="DonVi">
           <Key>
             <PropertyRef Name="MS_DV" />
@@ -21,6 +31,18 @@
           <Property Name="TenLoai" Type="nvarchar" MaxLength="300" />
           <Property Name="Create_at" Type="datetime" />
           <Property Name="User_create" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="loaitin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idTheLoai" Type="int" Nullable="false" />
+          <Property Name="Ten" Type="nvarchar" MaxLength="255" />
+          <Property Name="TenKhongDau" Type="varchar" MaxLength="255" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="updated_at" Type="datetime" />
+          <Property Name="status" Type="smallint" />
         </EntityType>
         <EntityType Name="loaivanban">
           <Key>
@@ -47,6 +69,17 @@
           <Property Name="MaSo" Type="varchar" MaxLength="100" />
           <Property Name="MS_DV" Type="varchar" MaxLength="10" />
           <Property Name="MaLoai" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="theloai">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ten" Type="nvarchar" MaxLength="255" />
+          <Property Name="TenKhongDau" Type="varchar" MaxLength="255" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="updated_at" Type="datetime" />
+          <Property Name="status" Type="smallint" />
         </EntityType>
         <EntityType Name="users">
           <Key>
@@ -75,6 +108,18 @@
           <Property Name="Donvigui" Type="varchar" MaxLength="150" />
           <Property Name="TenFile" Type="nvarchar" MaxLength="300" />
         </EntityType>
+        <Association Name="FK__Banhanhvb__Idvan__59C55456">
+          <End Role="vanban" Type="Self.vanban" Multiplicity="1" />
+          <End Role="Banhanhvb" Type="Self.Banhanhvb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vanban">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Banhanhvb">
+              <PropertyRef Name="Idvanban" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__tailieu__user_cr__0B91BA14">
           <End Role="users" Type="Self.users" Multiplicity="0..1" />
           <End Role="tailieu" Type="Self.tailieu" Multiplicity="*" />
@@ -111,14 +156,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_loaitin_theloai">
+          <End Role="theloai" Type="Self.theloai" Multiplicity="1" />
+          <End Role="loaitin" Type="Self.loaitin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theloai">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="loaitin">
+              <PropertyRef Name="idTheLoai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="Get_LoaiTaiLieu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ISBModelStoreContainer">
+          <EntitySet Name="Banhanhvb" EntityType="Self.Banhanhvb" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DonVi" EntityType="Self.DonVi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="loaitailieu" EntityType="Self.loaitailieu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="loaitin" EntityType="Self.loaitin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="loaivanban" EntityType="Self.loaivanban" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tailieu" EntityType="Self.tailieu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="theloai" EntityType="Self.theloai" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vanban" EntityType="Self.vanban" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Banhanhvb__Idvan__59C55456" Association="Self.FK__Banhanhvb__Idvan__59C55456">
+            <End Role="vanban" EntitySet="vanban" />
+            <End Role="Banhanhvb" EntitySet="Banhanhvb" />
+          </AssociationSet>
           <AssociationSet Name="FK__tailieu__user_cr__0B91BA14" Association="Self.FK__tailieu__user_cr__0B91BA14">
             <End Role="users" EntitySet="users" />
             <End Role="tailieu" EntitySet="tailieu" />
@@ -130,6 +194,10 @@
           <AssociationSet Name="FK__vanban__Idloaivb__10566F31" Association="Self.FK__vanban__Idloaivb__10566F31">
             <End Role="loaivanban" EntitySet="loaivanban" />
             <End Role="vanban" EntitySet="vanban" />
+          </AssociationSet>
+          <AssociationSet Name="FK_loaitin_theloai" Association="Self.FK_loaitin_theloai">
+            <End Role="theloai" EntitySet="theloai" />
+            <End Role="loaitin" EntitySet="loaitin" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -156,6 +224,17 @@
             <End Role="tailieu" EntitySet="tailieux" />
           </AssociationSet>
           <FunctionImport Name="Get_LoaiTaiLieu" ReturnType="Collection(ISBModel.Get_LoaiTaiLieu_Result)" />
+          <EntitySet Name="Banhanhvbs" EntityType="ISBModel.Banhanhvb" />
+          <AssociationSet Name="FK__Banhanhvb__Idvan__59C55456" Association="ISBModel.FK__Banhanhvb__Idvan__59C55456">
+            <End Role="vanban" EntitySet="vanbans" />
+            <End Role="Banhanhvb" EntitySet="Banhanhvbs" />
+          </AssociationSet>
+          <EntitySet Name="theloais" EntityType="ISBModel.theloai" />
+          <EntitySet Name="loaitins" EntityType="ISBModel.loaitin" />
+          <AssociationSet Name="FK_loaitin_theloai" Association="ISBModel.FK_loaitin_theloai">
+            <End Role="theloai" EntitySet="theloais" />
+            <End Role="loaitin" EntitySet="loaitins" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="DonVi">
           <Key>
@@ -218,6 +297,7 @@
           <Property Name="Donvigui" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="TenFile" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="loaivanban" Relationship="ISBModel.FK__vanban__Idloaivb__10566F31" FromRole="vanban" ToRole="loaivanban" />
+          <NavigationProperty Name="Banhanhvbs" Relationship="ISBModel.FK__Banhanhvb__Idvan__59C55456" FromRole="vanban" ToRole="Banhanhvb" />
         </EntityType>
         <Association Name="FK__vanban__Idloaivb__10566F31">
           <End Type="ISBModel.loaivanban" Role="loaivanban" Multiplicity="0..1" />
@@ -275,6 +355,66 @@
           <Property Type="String" Name="TenLoai" Nullable="true" MaxLength="300" />
           <Property Type="DateTime" Name="Create_at" Nullable="true" Precision="23" />
         </ComplexType>
+        <EntityType Name="Banhanhvb">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Idvanban" Type="Guid" Nullable="false" />
+          <Property Name="Donvinhan" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Ngayphathanh" Type="DateTime" Precision="3" />
+          <Property Name="Nguoibanhanh" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="vanban" Relationship="ISBModel.FK__Banhanhvb__Idvan__59C55456" FromRole="Banhanhvb" ToRole="vanban" />
+        </EntityType>
+        <Association Name="FK__Banhanhvb__Idvan__59C55456">
+          <End Type="ISBModel.vanban" Role="vanban" Multiplicity="1" />
+          <End Type="ISBModel.Banhanhvb" Role="Banhanhvb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vanban">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Banhanhvb">
+              <PropertyRef Name="Idvanban" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="theloai">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ten" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TenKhongDau" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="updated_at" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int16" />
+          <NavigationProperty Name="loaitins" Relationship="ISBModel.FK_loaitin_theloai" FromRole="theloai" ToRole="loaitin" />
+        </EntityType>
+        <EntityType Name="loaitin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idTheLoai" Type="Int32" Nullable="false" />
+          <Property Name="Ten" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TenKhongDau" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="updated_at" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int16" />
+          <NavigationProperty Name="theloai" Relationship="ISBModel.FK_loaitin_theloai" FromRole="loaitin" ToRole="theloai" />
+        </EntityType>
+        <Association Name="FK_loaitin_theloai">
+          <End Type="ISBModel.theloai" Role="theloai" Multiplicity="1" />
+          <End Type="ISBModel.loaitin" Role="loaitin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theloai">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="loaitin">
+              <PropertyRef Name="idTheLoai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -367,6 +507,42 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Banhanhvbs">
+            <EntityTypeMapping TypeName="ISBModel.Banhanhvb">
+              <MappingFragment StoreEntitySet="Banhanhvb">
+                <ScalarProperty Name="Nguoibanhanh" ColumnName="Nguoibanhanh" />
+                <ScalarProperty Name="Ngayphathanh" ColumnName="Ngayphathanh" />
+                <ScalarProperty Name="Donvinhan" ColumnName="Donvinhan" />
+                <ScalarProperty Name="Idvanban" ColumnName="Idvanban" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="theloais">
+            <EntityTypeMapping TypeName="ISBModel.theloai">
+              <MappingFragment StoreEntitySet="theloai">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="TenKhongDau" ColumnName="TenKhongDau" />
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="loaitins">
+            <EntityTypeMapping TypeName="ISBModel.loaitin">
+              <MappingFragment StoreEntitySet="loaitin">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="TenKhongDau" ColumnName="TenKhongDau" />
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+                <ScalarProperty Name="idTheLoai" ColumnName="idTheLoai" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

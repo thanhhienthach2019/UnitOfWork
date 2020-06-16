@@ -2,14 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Service.Interface
 {
     public interface ILoaiVanBanService
     {
-        IEnumerable<LoaiVanBanDTO> GetAll();
+        Task<IEnumerable<LoaiVanBanDTO>> GetAll();
 
-        LoaiVanBanDTO GetById(object id);
+        Task<LoaiVanBanDTO> GetById(object id);
 
         IEnumerable<LoaiVanBanDTO> GetByPredicate(Expression<Func<LoaiVanBanDTO, bool>> expression);
 

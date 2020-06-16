@@ -147,8 +147,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Controllers\BanHanhVbController.cs" />
     <Compile Include="Controllers\DonViController.cs" />
     <Compile Include="Controllers\LoaiTaiLieuController.cs" />
+    <Compile Include="Controllers\LoaiTinController.cs" />
     <Compile Include="Controllers\LoaiVanBanController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\VanBanController.cs" />
@@ -202,6 +204,8 @@
     <Content Include="Views\LoaiVanBan\Index.cshtml" />
     <Content Include="Views\VanBan\Index.cshtml" />
     <Content Include="Views\LoaiTaiLieu\Index.cshtml" />
+    <Content Include="Views\BanHanhVb\Index.cshtml" />
+    <Content Include="Views\LoaiTin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

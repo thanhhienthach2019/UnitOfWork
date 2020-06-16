@@ -17,6 +17,10 @@
             CreateMap<loaitailieu, LoaiTaiLieuDTO>();
             CreateMap<tailieu, TaiLieuDTO>();
             CreateMap<Get_LoaiTaiLieu_Result, GetLoaiTaiLieuDTO>();
+            CreateMap<Banhanhvb, BanhanhvbDTO>();
+            CreateMap<theloai, TheLoaiDTO>();
+            CreateMap<loaitin, LoaiTinDTO>();
+
             #endregion Enity To Dto
 
             #region Dto to Entity
@@ -28,6 +32,10 @@
             CreateMap<LoaiTaiLieuDTO, loaitailieu>();
             CreateMap<TaiLieuDTO, tailieu>();
             CreateMap<GetLoaiTaiLieuDTO, Get_LoaiTaiLieu_Result>();
+            CreateMap<BanhanhvbDTO, Banhanhvb>();
+            CreateMap<TheLoaiDTO, theloai>();
+            CreateMap<LoaiTinDTO, loaitin>();
+
             #endregion Dto to Entity
         }
     }

@@ -2,6 +2,7 @@
 using Service.Interface;
 using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace ISBMvc.Controllers
@@ -16,9 +17,9 @@ namespace ISBMvc.Controllers
         }
 
         // GET: DonVi
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            IEnumerable<DonViDTO> result = _donViService.GetAll();
+            IEnumerable<DonViDTO> result = await _donViService.GetAllPar();
             return View(result);
         }
 
@@ -29,19 +30,19 @@ namespace ISBMvc.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Insert(DonViDTO donViDTO)
+        public async Task<ActionResult> Insert(DonViDTO donViDTO)
         {
-            DonViDTO result = _donViService.Add(donViDTO);
+            DonViDTO result = await _donViService.Add(donViDTO);
             return RedirectToAction("Index");
         }
 
-        public ActionResult Update(string ms_dv)
+        public async Task<ActionResult> Update(string ms_dv)
         {
             if (ms_dv == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DonViDTO donViDTO = _donViService.GetByID(ms_dv);
+            DonViDTO donViDTO = await _donViService.GetByID(ms_dv);
             if (donViDTO == null)
             {
                 return HttpNotFound();
@@ -57,13 +58,13 @@ namespace ISBMvc.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Delete(string ms_dv)
+        public async Task<ActionResult> Delete(string ms_dv)
         {
             if (ms_dv == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DonViDTO donViDTO = _donViService.Delete(ms_dv);
+            DonViDTO donViDTO = await _donViService.Delete(ms_dv);
             if (donViDTO == null)
             {
                 return HttpNotFound();
@@ -73,9 +74,9 @@ namespace ISBMvc.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string ms_dv)
+        public async Task<ActionResult> DeleteConfirmed(string ms_dv)
         {
-            DonViDTO donViDTO = _donViService.Delete(ms_dv);
+            DonViDTO donViDTO = await _donViService.Delete(ms_dv);
             return RedirectToAction("Index");
         }
     }

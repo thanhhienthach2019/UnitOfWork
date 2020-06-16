@@ -2,20 +2,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Service.Interface
 {
     public interface IDonViService
     {
-        IEnumerable<DonViDTO> GetAll();
+        Task<IEnumerable<DonViDTO>> GetAll();
 
-        DonViDTO GetByID(object id);
+        Task<DonViDTO> GetByID(object id);
+
+        Task<IEnumerable<DonViDTO>> GetAllPar();
 
         IEnumerable<DonViDTO> GetByPredicate(Expression<Func<DonViDTO, bool>> predicate);
 
-        DonViDTO Add(DonViDTO donViDTO);
+        Task<DonViDTO> Add(DonViDTO donViDTO);
 
-        DonViDTO Delete(object id);
+        Task<DonViDTO> Delete(object id);
 
         void Update(DonViDTO donViDTO);
     }

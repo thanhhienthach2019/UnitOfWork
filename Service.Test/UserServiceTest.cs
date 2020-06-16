@@ -9,6 +9,7 @@ using Service.Implement;
 using Service.Interface;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Service.Test
@@ -29,14 +30,14 @@ namespace Service.Test
         }
 
         [Fact]
-        public void GetAll_Test()
+        public async void GetAll_Test()
         {
             IEnumerable<user> users = new List<user>() {
                 new user() { id = "Id Hiền nè", name = "Hiền nè" },
                 new user() { id = "Id Trung nè", name = "Trung nè" }
             };
-            _mockUnitOfWork.Setup(u => u.UserRepository.GetAll()).Returns(users);
-            IEnumerable<UserDTO> actual = _userService.GetAll();
+            _mockUnitOfWork.Setup(u => u.UserRepository.GetAll()).Returns(Task.FromResult(users));
+            IEnumerable<UserDTO> actual = await _userService.GetAll();
 
             int expected = 2;
             Assert.Equal(expected, actual.Count());
@@ -44,12 +45,12 @@ namespace Service.Test
 
         [Theory]
         [InlineData("1 hien", "1 hien")]
-        public void GetByID_Test(string ids, string expected)
+        public async void GetByID_Test(string ids, string expected)
         {
             user users = new user() { id = ids, name = "Hiền nè" };
-            _mockUnitOfWork.Setup(u => u.UserRepository.GetById(It.IsAny<string>())).Returns(users);
+            _mockUnitOfWork.Setup(u => u.UserRepository.GetById(It.IsAny<string>())).Returns(Task.FromResult(users));
 
-            UserDTO actual = _userService.GetByID(ids);
+            UserDTO actual = await _userService.GetByID(ids);
 
             Assert.Equal(expected, actual.id);
         }

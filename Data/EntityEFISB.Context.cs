@@ -20,6 +20,9 @@ namespace Data
         public ISBEntities()
             : base("name=ISBEntities")
         {
+            //Su dung AsNoTracking
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -33,6 +36,9 @@ namespace Data
         public virtual DbSet<vanban> vanbans { get; set; }
         public virtual DbSet<loaitailieu> loaitailieux { get; set; }
         public virtual DbSet<tailieu> tailieux { get; set; }
+        public virtual DbSet<Banhanhvb> Banhanhvbs { get; set; }
+        public virtual DbSet<theloai> theloais { get; set; }
+        public virtual DbSet<loaitin> loaitins { get; set; }
     
         public virtual ObjectResult<Get_LoaiTaiLieu_Result> Get_LoaiTaiLieu()
         {

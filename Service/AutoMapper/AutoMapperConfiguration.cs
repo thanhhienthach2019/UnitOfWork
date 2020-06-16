@@ -1,6 +1,7 @@
 ﻿namespace Service.AutoMapper
 {
     using global::AutoMapper;
+    using global::AutoMapper.Extensions.ExpressionMapping;
 
     public static class AutoMapperConfiguration
     {
@@ -8,6 +9,7 @@
         {
             Mapper.Initialize(cfg =>
             {
+                cfg.AddExpressionMapping();
                 cfg.AddProfile(new MappingProfile());
             });
         }

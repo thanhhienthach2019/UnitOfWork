@@ -14,6 +14,12 @@ namespace Data
     
     public partial class vanban
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public vanban()
+        {
+            this.Banhanhvbs = new HashSet<Banhanhvb>();
+        }
+    
         public System.Guid Id { get; set; }
         public string Sovb { get; set; }
         public string Trichyeu { get; set; }
@@ -26,5 +32,7 @@ namespace Data
         public string TenFile { get; set; }
     
         public virtual loaivanban loaivanban { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Banhanhvb> Banhanhvbs { get; set; }
     }
 }

@@ -5,9 +5,7 @@ using Repository.Infrastructure.Interface;
 using Service.Interface;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Service.Implement
@@ -16,11 +14,13 @@ namespace Service.Implement
     {
         private IMapper _mapper;
         private IUnitOfWork _unitOfWork;
-        public LoaiTaiLieuService(IMapper mapper,IUnitOfWork unitOfWork)
+
+        public LoaiTaiLieuService(IMapper mapper, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
+
         public LoaiTaiLieuDTO Add(LoaiTaiLieuDTO loaiTaiLieuDTO)
         {
             loaitailieu loaitailieu = _unitOfWork.LoaiTaiLieuRepository.Add(_mapper.Map<loaitailieu>(loaiTaiLieuDTO));
@@ -35,25 +35,25 @@ namespace Service.Implement
             return _mapper.Map<LoaiTaiLieuDTO>(loaitailieu);
         }
 
-        public IEnumerable<LoaiTaiLieuDTO> GetAll()
+        public async Task<IEnumerable<LoaiTaiLieuDTO>> GetAll()
         {
-            IEnumerable<loaitailieu> loaitailieus = _unitOfWork.LoaiTaiLieuRepository.GetAll();
+            IEnumerable<loaitailieu> loaitailieus = await _unitOfWork.LoaiTaiLieuRepository.GetAll();
             //IEnumerable<loaitailieu> loaitailieus = _unitOfWork.LoaiTaiLieuRepository.GetAll();
 
-            //var list = loaitailieus.Select((entry, index) => new 
+            //var list = loaitailieus.Select((entry, index) => new
             //{
             //    STT = index + 1,
             //    MaLoai = entry.MaLoai,
             //    TenLoai = entry.TenLoai,
             //    Create_at = entry.Create_at,
-            //    User_create = entry.User_create              
+            //    User_create = entry.User_create
             //}).AsEnumerable();
             return _mapper.Map<IEnumerable<LoaiTaiLieuDTO>>(loaitailieus);
         }
 
-        public LoaiTaiLieuDTO GetById(object id)
+        public async Task<LoaiTaiLieuDTO> GetById(object id)
         {
-            loaitailieu loaitailieu = _unitOfWork.LoaiTaiLieuRepository.GetById(id);
+            loaitailieu loaitailieu = await _unitOfWork.LoaiTaiLieuRepository.GetById(id);
             return _mapper.Map<LoaiTaiLieuDTO>(loaitailieu);
         }
 

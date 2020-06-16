@@ -16,7 +16,7 @@ namespace Repository.Repository.Implement
 
         public IEnumerable<loaivanban> GetByPredicate(Expression<Func<loaivanban, bool>> expression)
         {
-            return _dbSet.Where(expression);
+            return _dbSet.AsNoTracking().Where(expression);
         }
     }
 }

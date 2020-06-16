@@ -52,22 +52,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\Implement\RepositoryBase.cs" />
-    <Compile Include="Infrastructure\Implement\RepositoryBaseStoredProcedure.cs" />
     <Compile Include="Infrastructure\Implement\UnitOfWork.cs" />
     <Compile Include="Infrastructure\Interface\IRepositoryBase.cs" />
-    <Compile Include="Infrastructure\Interface\IRepositoryBaseStoredProcedure.cs" />
     <Compile Include="Infrastructure\Interface\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Implement\BanHanhVbRepository.cs" />
     <Compile Include="Repository\Implement\DonviRepository.cs" />
     <Compile Include="Repository\Implement\LoaiTaiLieuRepository.cs" />
+    <Compile Include="Repository\Implement\LoaiTinRepository.cs" />
     <Compile Include="Repository\Implement\LoaiVanBanRepository.cs" />
     <Compile Include="Repository\Implement\TaiLieuRepository.cs" />
+    <Compile Include="Repository\Implement\TheLoaiRepository.cs" />
     <Compile Include="Repository\Implement\UserRepository.cs" />
     <Compile Include="Repository\Implement\VanBanRepository.cs" />
+    <Compile Include="Repository\Interface\IBanHanhVbRepository.cs" />
     <Compile Include="Repository\Interface\IDonviRepository.cs" />
     <Compile Include="Repository\Interface\ILoaiTaiLieuRepository.cs" />
+    <Compile Include="Repository\Interface\ILoaiTinRepository.cs" />
     <Compile Include="Repository\Interface\ILoaiVanBanRepository.cs" />
     <Compile Include="Repository\Interface\ITaiLieuRepository.cs" />
+    <Compile Include="Repository\Interface\ITheLoaiRepository.cs" />
     <Compile Include="Repository\Interface\IUserRepository.cs" />
     <Compile Include="Repository\Interface\IVanBanRepository.cs" />
   </ItemGroup>

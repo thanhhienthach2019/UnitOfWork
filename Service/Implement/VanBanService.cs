@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.Extensions.ExpressionMapping;
 using Data;
 using DTO;
 using Repository.Infrastructure.Interface;
@@ -6,6 +7,7 @@ using Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Service.Implement
 {
@@ -41,23 +43,43 @@ namespace Service.Implement
             return _mapper.Map<VanBanDTO>(vanban);
         }
 
-        public IEnumerable<VanBanDTO> GetAll()
+        public async Task<IEnumerable<VanBanDTO>> GetAll()
         {
-            IEnumerable<vanban> vanban = _unitOfWork.VanBanRepository.GetAll();
+            IEnumerable<vanban> vanban = await _unitOfWork.VanBanRepository.GetAll();
             return _mapper.Map<IEnumerable<VanBanDTO>>(vanban);
         }
 
-        public VanBanDTO GetById(object id)
+        public async Task<VanBanDTO> GetById(object id)
         {
-            vanban vanban = _unitOfWork.VanBanRepository.GetById(id);
+            vanban vanban = await _unitOfWork.VanBanRepository.GetById(id);
             return _mapper.Map<VanBanDTO>(vanban);
         }
 
-        public IEnumerable<VanBanDTO> GetByPredicate(Expression<Func<VanBanDTO, bool>> expression)
+        public async Task<IEnumerable<VanBanDTO>> GetByPredicate(Expression<Func<VanBanDTO, bool>> expression)
         {
             Expression<Func<vanban, bool>> condition = _mapper.Map<Expression<Func<vanban, bool>>>(expression);
-            IEnumerable<vanban> vanbans = _unitOfWork.VanBanRepository.GetByPredicate(condition);
+            IEnumerable<vanban> vanbans = await _unitOfWork.VanBanRepository.GetByPredicate(condition);
             return _mapper.Map<IEnumerable<VanBanDTO>>(vanbans);
+        }
+
+        public async Task<IEnumerable<VanBanDTO>> GetAllPar()
+        {
+            IEnumerable<vanban> vanbans = await _unitOfWork.VanBanRepository.GetAllPar(x => x.loaivanban);
+            return _mapper.Map<IEnumerable<VanBanDTO>>(vanbans);
+        }
+
+        public async Task<IEnumerable<VanBanDTO>> GetMultiByPredicate(Expression<Func<VanBanDTO, bool>> expression)
+        {
+            Expression<Func<vanban, bool>> condition = _mapper.MapExpression<Expression<Func<vanban, bool>>>(expression);
+            IEnumerable<vanban> vanbans = await _unitOfWork.VanBanRepository.GetMultiByPredicate(condition, x => x.loaivanban);
+            return _mapper.Map<IEnumerable<VanBanDTO>>(vanbans);
+        }
+
+        public async Task<VanBanDTO> GetSingleByPredicate(Expression<Func<VanBanDTO, bool>> expression)
+        {
+            Expression<Func<vanban, bool>> condition = _mapper.MapExpression<Expression<Func<vanban, bool>>>(expression);
+            vanban vanban = await _unitOfWork.VanBanRepository.GetSingleByPredicate(condition, x => x.loaivanban);
+            return _mapper.Map<VanBanDTO>(vanban);
         }
     }
 }

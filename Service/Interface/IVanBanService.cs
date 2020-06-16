@@ -2,16 +2,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Service.Interface
 {
     public interface IVanBanService
     {
-        IEnumerable<VanBanDTO> GetAll();
+        Task<IEnumerable<VanBanDTO>> GetAll();
 
-        VanBanDTO GetById(object id);
+        Task<IEnumerable<VanBanDTO>> GetAllPar();
 
-        IEnumerable<VanBanDTO> GetByPredicate(Expression<Func<VanBanDTO, bool>> expression);
+        Task<VanBanDTO> GetById(object id);
+
+        Task<IEnumerable<VanBanDTO>> GetByPredicate(Expression<Func<VanBanDTO, bool>> expression);
+
+        Task<IEnumerable<VanBanDTO>> GetMultiByPredicate(Expression<Func<VanBanDTO, bool>> expression);
+
+        Task<VanBanDTO> GetSingleByPredicate(Expression<Func<VanBanDTO, bool>> expression);
 
         VanBanDTO Add(VanBanDTO vanBanDTO);
 

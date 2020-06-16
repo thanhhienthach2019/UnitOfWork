@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.Extensions.ExpressionMapping;
 using Data;
 using DTO;
 using Repository.Infrastructure.Interface;
@@ -6,6 +7,7 @@ using Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Service.Implement
 {
@@ -20,37 +22,56 @@ namespace Service.Implement
             _unitOfWork = unitOfWork;
         }
 
-        public UserDTO Add(UserDTO userDTO)
+        public async Task<UserDTO> Add(UserDTO userDTO)
         {
             user user = _unitOfWork.UserRepository.Add(_mapper.Map<user>(userDTO));
-            _unitOfWork.Commit();
+            await _unitOfWork.CommitAsync();
             return _mapper.Map<UserDTO>(user);
         }
 
-        public UserDTO Delete(object id)
+        public async Task<UserDTO> Delete(object id)
         {
             user user = _unitOfWork.UserRepository.Delete(id);
-            _unitOfWork.Commit();
+            await _unitOfWork.CommitAsync();
             return _mapper.Map<UserDTO>(user);
         }
 
-        public IEnumerable<UserDTO> GetAll()
+        public async Task<IEnumerable<UserDTO>> GetAll()
         {
-            IEnumerable<user> users = _unitOfWork.UserRepository.GetAll();
+            IEnumerable<user> users = await _unitOfWork.UserRepository.GetAll();
             return _mapper.Map<IEnumerable<UserDTO>>(users);
         }
 
-        public UserDTO GetByID(object id)
+        public Task<IEnumerable<UserDTO>> GetAllPar()
         {
-            user user = _unitOfWork.UserRepository.GetById(id);
+            throw new NotImplementedException();
+        }
+
+        public async Task<UserDTO> GetByID(object id)
+        {
+            user user = await _unitOfWork.UserRepository.GetById(id);
             return _mapper.Map<UserDTO>(user);
         }
 
-        public IEnumerable<UserDTO> GetByPredicate(Expression<Func<UserDTO, bool>> predicate)
+        public async Task<IEnumerable<UserDTO>> GetByPredicate(Expression<Func<UserDTO, bool>> predicate)
         {
             Expression<Func<user, bool>> p = _mapper.Map<Expression<Func<user, bool>>>(predicate);
-            IEnumerable<user> user = _unitOfWork.UserRepository.GetByPredicate(p);
+            IEnumerable<user> user = await _unitOfWork.UserRepository.GetByPredicate(p);
             return _mapper.Map<IEnumerable<UserDTO>>(user);
+        }
+
+        public async Task<IEnumerable<UserDTO>> GetMultiByPredicate(Expression<Func<UserDTO, bool>> expression)
+        {
+            Expression<Func<user, bool>> condition = _mapper.MapExpression<Expression<Func<user, bool>>>(expression);
+            IEnumerable<user> users = await _unitOfWork.UserRepository.GetByMultiByPredicate(condition, x => x.donvi);
+            return _mapper.Map<IEnumerable<UserDTO>>(users);
+        }
+
+        public async Task<UserDTO> GetSingleByPredicate(Expression<Func<UserDTO, bool>> expression)
+        {
+            Expression<Func<user, bool>> condition = _mapper.MapExpression<Expression<Func<user, bool>>>(expression);
+            user user = await _unitOfWork.UserRepository.GetSingleByPredicate(condition, x => x.donvi);
+            return _mapper.Map<UserDTO>(user);
         }
 
         public void Update(UserDTO userDTO)

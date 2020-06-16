@@ -9,6 +9,7 @@ using Service.Implement;
 using Service.Interface;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Service.Test
@@ -29,14 +30,14 @@ namespace Service.Test
         }
 
         [Fact]
-        public void GetAll_Test()
+        public async void GetAll_Test()
         {
             IEnumerable<DonVi> donVis = new List<DonVi>() {
                 new DonVi() { MS_DV = "1102000000", TenDonVi = "PHÒNG CÔNG NGHỆ THÔNG TIN" },
                 new DonVi() { MS_DV = "1103000000", TenDonVi = "PHÒNG HÀNH CHÁNH NHÂN SỰ" }
             };
-            _mockUnitOfWork.Setup(u => u.DonViRepository.GetAll()).Returns(donVis);
-            IEnumerable<DonViDTO> actual = _donViService.GetAll();
+            _mockUnitOfWork.Setup(u => u.DonViRepository.GetAll()).Returns(Task.FromResult(donVis));
+            IEnumerable<DonViDTO> actual = await _donViService.GetAll();
 
             int expected = 2;
             Assert.Equal(expected, actual.Count());
@@ -44,12 +45,12 @@ namespace Service.Test
 
         [Theory]
         [InlineData("1102000000", "1102000000")]
-        public void GetByID_Test(string ms_dv, string expected)
+        public async void GetByID_Test(string ms_dv, string expected)
         {
             DonVi donVi = new DonVi() { MS_DV = "1102000000", TenDonVi = "PHÒNG CÔNG NGHỆ THÔNG TIN" };
-            _mockUnitOfWork.Setup(u => u.DonViRepository.GetById(It.IsAny<string>())).Returns(donVi);
+            _mockUnitOfWork.Setup(u => u.DonViRepository.GetById(It.IsAny<string>())).Returns(Task.FromResult(donVi));
 
-            DonViDTO actual = _donViService.GetByID(ms_dv);
+            DonViDTO actual = await _donViService.GetByID(ms_dv);
 
             Assert.Equal(expected, actual.MS_DV);
         }

@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Repository.Infrastructure.Interface
 {
     public interface IRepositoryBase<TEntity> where TEntity : class
     {
-        IEnumerable<TEntity> GetAll();
+        Task<IEnumerable<TEntity>> GetAll();
 
-        TEntity GetById(object id);
+        Task<TEntity> GetById(object id);
 
         TEntity Add(TEntity entity);
 

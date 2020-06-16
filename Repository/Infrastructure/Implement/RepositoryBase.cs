@@ -2,6 +2,7 @@
 using Repository.Infrastructure.Interface;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace Repository.Infrastructure.Implement
 {
@@ -9,6 +10,8 @@ namespace Repository.Infrastructure.Implement
     {
         private ISBEntities _dbContext;
         protected DbSet<TEntity> _dbSet;
+        //protected DbQuery<TEntity> _dbQuery;
+        //private UnitOfWork UnitOfWork;
 
         public RepositoryBase(ISBEntities dbContext)
         {
@@ -27,14 +30,14 @@ namespace Repository.Infrastructure.Implement
             return _dbSet.Remove(entity);
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public async Task<IEnumerable<TEntity>> GetAll()
         {
-            return _dbSet;
+            return await _dbSet.AsNoTracking().ToListAsync();
         }
 
-        public TEntity GetById(object id)
+        public async Task<TEntity> GetById(object id)
         {
-            return _dbSet.Find(id);
+            return await _dbSet.FindAsync(id);
         }
 
         public void Update(TEntity entity)

@@ -1,6 +1,7 @@
 ﻿using DTO;
 using Service.Interface;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace ISBMvc.Controllers
@@ -15,9 +16,9 @@ namespace ISBMvc.Controllers
         }
 
         // GET: User
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            IEnumerable<UserDTO> result = _userService.GetByPredicate(x => x.donvi == "1103000000" && x.password == "1962026656160185351301320480154111117132155");
+            IEnumerable<UserDTO> result = await _userService.GetByPredicate(x => x.donvi == "1103000000" && x.password == "1962026656160185351301320480154111117132155");
             return View(result);
         }
     }

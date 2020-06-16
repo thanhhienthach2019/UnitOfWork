@@ -6,6 +6,7 @@ using Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Service.Implement
 {
@@ -20,29 +21,35 @@ namespace Service.Implement
             _unitOfWork = unitOfWork;
         }
 
-        public DonViDTO Add(DonViDTO donViDTO)
+        public async Task<DonViDTO> Add(DonViDTO donViDTO)
         {
             DonVi donVi = _unitOfWork.DonViRepository.Add(_mapper.Map<DonVi>(donViDTO));
-            _unitOfWork.Commit();
+            await _unitOfWork.CommitAsync();
             return _mapper.Map<DonViDTO>(donVi);
         }
 
-        public DonViDTO Delete(object id)
+        public async Task<DonViDTO> Delete(object id)
         {
             DonVi donVi = _unitOfWork.DonViRepository.Delete(id);
-            _unitOfWork.Commit();
+            await _unitOfWork.CommitAsync();
             return _mapper.Map<DonViDTO>(donVi);
         }
 
-        public IEnumerable<DonViDTO> GetAll()
+        public async Task<IEnumerable<DonViDTO>> GetAll()
         {
-            IEnumerable<DonVi> donVis = _unitOfWork.DonViRepository.GetAll();
+            IEnumerable<DonVi> donVis = await _unitOfWork.DonViRepository.GetAll();
             return _mapper.Map<IEnumerable<DonViDTO>>(donVis);
         }
 
-        public DonViDTO GetByID(object id)
+        public async Task<IEnumerable<DonViDTO>> GetAllPar()
         {
-            DonVi donVi = _unitOfWork.DonViRepository.GetById(id);
+            IEnumerable<DonVi> donvis = await _unitOfWork.DonViRepository.GetAllPar();
+            return _mapper.Map<IEnumerable<DonViDTO>>(donvis);
+        }
+
+        public async Task<DonViDTO> GetByID(object id)
+        {
+            DonVi donVi = await _unitOfWork.DonViRepository.GetById(id);
             return _mapper.Map<DonViDTO>(donVi);
         }
 
@@ -57,7 +64,7 @@ namespace Service.Implement
         {
             DonVi donVi = _mapper.Map<DonVi>(donViDTO);
             _unitOfWork.DonViRepository.Update(donVi);
-            _unitOfWork.Commit();
+            _unitOfWork.CommitAsync();
         }
     }
 }
